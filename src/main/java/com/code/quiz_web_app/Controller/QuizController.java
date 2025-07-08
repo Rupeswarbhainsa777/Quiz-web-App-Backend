@@ -1,15 +1,20 @@
 package com.code.quiz_web_app.Controller;
 
-import org.springframework.http.HttpStatus;
+import com.code.quiz_web_app.Service.QuizService;
+import com.code.quiz_web_app.model.Question;
+import com.code.quiz_web_app.model.QuestionWrapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("quiz")
 public class QuizController {
+
+    @Autowired
+     QuizService quizService;
 
     @PostMapping("create")
     public ResponseEntity<String> createQuiz(
@@ -17,9 +22,23 @@ public class QuizController {
             @RequestParam int numQ,
             @RequestParam String title
     ){
-        return  new ResponseEntity<>(
-                "I am here", HttpStatus.OK
-        );
+        return  quizService.createQuiz(category,numQ,title);
 
     }
+    @GetMapping("get/{id}")
+    public  ResponseEntity<List<QuestionWrapper>> getQuestions(@PathVariable Integer id){
+        return  quizService.getQuizQuestions(id);
+
+
+    }
+
+
+
+
+
+
+
+
+
+
 }

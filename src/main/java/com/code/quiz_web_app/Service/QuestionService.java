@@ -1,6 +1,6 @@
 package com.code.quiz_web_app.Service;
 
-import com.code.quiz_web_app.Questions;
+import com.code.quiz_web_app.model.Question;
 import com.code.quiz_web_app.dao.QuestionDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,7 @@ public class QuestionService {
     @Autowired
     QuestionDao questionDao;
 
-    public ResponseEntity<List<Questions>> getAllQuestion() {
+    public ResponseEntity<List<Question>> getAllQuestion() {
        try {
            return  new ResponseEntity<>(questionDao.findAll(),HttpStatus.OK);
        }
@@ -27,7 +27,7 @@ public class QuestionService {
 
     }
 
-    public ResponseEntity<List<Questions>> getQuestionByCategory(String category) {
+    public ResponseEntity<List<Question>> getQuestionByCategory(String category) {
       try {
           return  new ResponseEntity<>( questionDao.findByCategory(category),HttpStatus.OK);
       }
@@ -39,7 +39,7 @@ public class QuestionService {
     }
 
 
-    public ResponseEntity<String> addQuestion(Questions questions) {
+    public ResponseEntity<String> addQuestion(Question questions) {
 
         questionDao.save(questions);
         return new  ResponseEntity<>("success",HttpStatus.OK);
